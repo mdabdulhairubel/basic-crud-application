@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ostad/add_new_screen.dart';
+import 'package:ostad/edit_screen.dart';
 
 enum PopupMenumalmosla { edit, delete }
 
@@ -42,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             trailing: PopupMenuButton<PopupMenumalmosla>(
+              onSelected: ontapPopupMenuButton,
               itemBuilder: (context) => [
                 const PopupMenuItem(
                     value: PopupMenumalmosla.edit,
@@ -65,11 +67,55 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewScreen()));
-      },
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddNewScreen()));
+          },
           icon: const Icon(Icons.add),
           label: const Text("Add")),
+    );
+  }
+
+  void ontapPopupMenuButton(PopupMenumalmosla type) {
+    switch (type) {
+      case PopupMenumalmosla.edit:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const EditScreen(),
+          ),
+        );
+        break;
+      case PopupMenumalmosla.delete:
+        _showDeleteDialoge();
+        break;
+    }
+  }
+
+  void _showDeleteDialoge() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Delete Dialoug Box"),
+          content: const Text("Are you sure? Delete this Product?"),
+          actions: [
+            TextButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: const Text("Cancel")),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                "Yes, Delete",
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
