@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'home_screen.dart';
 
-void main () {
+void main() {
   runApp(const ApiApp());
 }
 
@@ -10,12 +11,11 @@ class ApiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF607D8B),
-        )
-      ),
+          appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xFF607D8B),
+      )),
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
